@@ -1,75 +1,159 @@
 <!doctype html>
-<html lang="pt-BR" class="theme-indigo">
+<html lang="pt-BR" class="theme-gold-premium">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dom Sarmento — Atalhos</title>
+<title>Dom Sarmento — Autoridade</title>
 <meta name="description" content="Template simples e escalável para negócios locais." />
 <style>
+/* ========================================================== */
+/* PALETA DE AUTORIDADE: PRETO CARVÃO E DOURADO/BRONZE */
+/* ========================================================== */
 :root{
   --radius: 14px;
-  --shadow: 0 8px 24px rgba(0,0,0,.18);
-  --shadow-soft: 0 4px 14px rgba(0,0,0,.10);
-  --bg: #0b0b0b;
-  --surface: #121212;
-  --surface-2: #1a1a1a;
-  --text: #f7f7f7;
-  --muted: #c7c7c7;
-  --brand: #8b80ff;
-  --brand-2:#6a5cff;
-  --accent:#66e0ff;
-  --ring: rgba(255,255,255,.10);
+  --shadow: 0 8px 24px rgba(0,0,0,.35); /* Sombra mais intensa no fundo escuro */
+  --shadow-soft: 0 4px 14px rgba(0,0,0,.20);
+  
+  /* PALETA DOURADO/BRONZE */
+  --color-primary: #C0A16B; /* Dourado/Bronze principal */
+  --color-secondary: #B09260; /* Dourado/Bronze mais escuro para gradiente */
+
+  /* PALETA DE FUNDO PRETO CARVÃO */
+  --bg: #1C1C1C; /* Preto Carvão (Fundo) */
+  --surface: #262626; /* Preto Carvão Ligeiramente mais Claro (Cartões) */
+  --surface-2: #333333; /* Cor de Acento Sutil */
+  
+  --text: #F7F7F7; /* Texto principal (Branco) */
+  --muted: #A0A0A0; /* Texto secundário/descrições (Cinza) */
+
+  /* CORES DINÂMICAS DO TEMPLATE (AJUSTADAS) */
+  --brand: var(--color-primary);
+  --brand-2: var(--color-secondary); 
+  --accent: #7ae6cf; /* Não usado, mas mantido */
+  --ring: rgba(255,255,255,.08); /* Borda/Anel discreto */
 }
-.theme-gold{ --bg:#0b0b0b; --surface:#121212; --surface-2:#1a1a1a; --text:#f7f7f7; --muted:#cfcfcf; --brand:#e5c074; --brand-2:#b88b45; --accent:#7ae6cf; --ring:rgba(255,255,255,.10); }
-.theme-blue{ --bg:#08101a; --surface:#0f1b2a; --surface-2:#122338; --text:#f4faff; --muted:#c6d7e6; --brand:#4c7dff; --brand-2:#2f66ff; --accent:#67e6f0; --ring:rgba(255,255,255,.10); }
+
+/* Removendo classes de tema padrão e aplicando a nova */
+.theme-indigo{ --brand: var(--color-primary); --brand-2: var(--color-secondary); }
+.theme-gold{ --brand: var(--color-primary); --brand-2: var(--color-secondary); }
+.theme-blue{ --brand: var(--color-primary); --brand-2: var(--color-secondary); }
+
+/* CLASSE PRINCIPAL PARA A NOVA PALETA */
+.theme-gold-premium{ 
+  --bg: #1C1C1C; 
+  --surface: #262626; 
+  --surface-2: #333333; 
+  --text: #F7F7F7; 
+  --muted: #A0A0A0; 
+  --brand: #C0A16B; 
+  --brand-2: #B09260; 
+  --ring: rgba(255,255,255,.08);
+}
+/* ========================================================== */
+
 
 *{box-sizing:border-box} html,body{height:100%}
 body{
   margin:0; font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  color:var(--text); background:var(--bg) center/cover fixed no-repeat;
+  color:var(--text); 
+  background:var(--bg) center/cover fixed no-repeat;
+  /* Gradiente mais sutil no fundo */
+  background: linear-gradient(180deg, var(--bg), var(--bg)) center/cover fixed no-repeat; 
 }
 a{color:inherit; text-decoration:none}
 img{max-width:100%; display:block}
 
-.wrapper{ min-height:100%; display:grid; grid-template-rows:auto 1fr auto; background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.75)); }
+.wrapper{ min-height:100%; display:grid; grid-template-rows:auto 1fr auto; }
 .container{ width:100%; max-width:920px; margin:0 auto; padding:24px 16px; }
 
-.header{ display:flex; align-items:center; gap:12px; padding:10px 0; }
-.brand-logo{ width:64px; height:64px; border-radius:999px; background:#fff; display:grid; place-items:center; box-shadow:var(--shadow-soft); overflow:hidden; }
-.brand-title{font-weight:800; letter-spacing:.3px; font-size:22px}
-.brand-sub{color:var(--muted); font-size:14px; margin-top:2px}
+/* CABEÇALHO REFORÇADO */
+.header{ display:flex; align-items:center; gap:16px; padding:10px 0; }
+.brand-logo{ 
+  width:72px; height:72px; /* Logo Ligeiramente maior */
+  border-radius:999px; background:#fff; display:grid; place-items:center; 
+  box-shadow:0 0 0 3px var(--color-primary); /* Borda Dourada no logo */
+  overflow:hidden; 
+}
+.brand-title{
+  font-weight:900; 
+  letter-spacing:.5px; 
+  font-size:26px; /* Título maior */
+  color:var(--color-primary); /* Título em Dourado */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.brand-sub{color:var(--muted); font-size:15px; margin-top:2px}
 
-.card{ margin-top:18px; background:linear-gradient(180deg, var(--surface), var(--surface-2)); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; border:1px solid var(--ring); }
+/* CARD PRINCIPAL - FOCO NO IMPACTO */
+.card{ 
+  margin-top:24px; 
+  background:var(--surface); /* Fundo mais escuro */
+  border-radius:var(--radius); 
+  box-shadow:var(--shadow); 
+  padding:24px 18px; 
+  border-left: 5px solid var(--color-primary); /* Linha vertical de destaque */
+}
 .card .cta{
-  margin-top:10px; display:inline-flex; align-items:center; gap:10px;
+  margin-top:16px; 
+  display:inline-flex; align-items:center; justify-content:center; /* Centralizar botão */
+  width: 100%; /* Largura total para impacto */
+  gap:10px;
   background:linear-gradient(180deg, var(--brand), var(--brand-2));
-  color:#1a1206; font-weight:800; padding:12px 16px; border-radius:999px;
-  box-shadow:0 8px 18px rgba(0,0,0,.25); transition:transform .06s ease;
+  color:var(--bg); /* Texto do CTA em Preto Carvão */ 
+  font-weight:900; /* Peso extra */
+  padding:15px 20px; /* Preenchimento maior */
+  border-radius:6px; /* Cantos menos arredondados (mais autoridade) */
+  box-shadow:0 6px 15px rgba(192, 161, 107, 0.4); /* Sombra Dourada */
+  transition:transform .08s ease;
 }
-.card .cta:active{ transform:translateY(1px) }
+.card .cta:active{ transform:scale(0.98) }
 
-.actions{margin-top:14px; display:grid; gap:10px}
+/* ITENS DE AÇÃO (ATALHOS) */
+.actions{margin-top:20px; display:grid; gap:12px}
 .action{
-  display:flex; align-items:center; gap:12px; background:var(--surface);
-  border:1px solid var(--ring); border-radius:var(--radius); padding:12px 14px;
-  box-shadow:var(--shadow-soft); transition:transform .06s ease, border-color .2s ease, background .2s ease;
+  display:flex; align-items:center; gap:14px; 
+  background:var(--surface); 
+  border:1px solid var(--ring); 
+  border-radius:var(--radius); 
+  padding:14px 16px; 
+  box-shadow:var(--shadow-soft); 
+  transition:transform .06s ease, border-color .2s ease, background .2s ease;
 }
-.action:active{ transform:translateY(1px) }
 
-/* Ícones 36px */
 .action-icon{
-  width:36px; height:36px; display:grid; place-items:center; border-radius:9px;
-  background:linear-gradient(180deg, var(--surface-2), var(--surface)); border:1px solid var(--ring);
+  /* Ícones maiores e em DOURADO */
+  width:40px; height:40px; 
+  display:grid; place-items:center; border-radius:10px;
+  background:var(--surface-2); 
+  border:1px solid var(--ring);
+  color:var(--color-primary); /* Cor Dourada para Ícones */
 }
-.action-title{font-weight:800; letter-spacing:.2px}
+.action-title{font-weight:800; letter-spacing:.2px; font-size:16px}
 .action-desc{font-size:13px; color:var(--muted); margin-top:2px}
 
 .action .right{ margin-left:auto; display:flex; gap:8px; align-items:center; }
-.tag{ font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid var(--ring); }
+.tag{ 
+  font-size:12px; 
+  padding:6px 10px; 
+  border-radius:999px; 
+  background:var(--surface-2); 
+  border:1px solid var(--ring); 
+  color:var(--color-primary); /* TAG em Dourado */
+  font-weight:700;
+}
+
+/* Estilo para TAGS de Senha/PIX (mais visível) */
+.action .right .tag-special {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-family: 'Courier New', monospace; /* Fonte técnica para senhas/códigos */
+  background: transparent;
+  border: none;
+  font-size: 14px;
+}
 
 .footer{ opacity:.85; font-size:12px; color:var(--muted); text-align:center; padding:18px 0 28px }
 
-@media (min-width:560px){ .card{padding:20px} .actions{gap:12px} }
+@media (min-width:560px){ .card{padding:28px} .actions{gap:14px} }
 </style>
 </head>
 <body>
@@ -79,16 +163,16 @@ img{max-width:100%; display:block}
         <div class="brand-logo"><img id="brandLogo" alt="Logo"></div>
         <div>
           <div class="brand-title" id="brandName">Dom Sarmento</div>
-          <div class="brand-sub" id="brandSub">Barbearia • Centro</div>
+          <div class="brand-sub" id="brandSub">Barbearia Premium • Centro</div>
         </div>
       </header>
 
       <section class="card">
-        <div style="font-weight:800; font-size:18px" id="heroTitle">Tradição e estilo em cada corte</div>
-        <div class="brand-sub" id="heroSub">Agende, avalie e fale com a gente em um clique.</div>
+        <div style="font-weight:800; font-size:19px" id="heroTitle">Tradição e Estilo no seu Corte.</div>
+        <div class="brand-sub" id="heroSub">Agende, avalie e conecte-se com a gente em um clique.</div>
         <a class="cta" id="btnAgendar" href="#" target="_blank" rel="noopener">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <span id="heroCtaText">Agendar horário</span>
+          <span id="heroCtaText">AGENDAR HORÁRIO</span>
         </a>
       </section>
 
@@ -101,21 +185,21 @@ img{max-width:100%; display:block}
   </div>
 
 <script>
-/* ========= CONFIG ========= */
+/* ========= CONFIG AJUSTADA PARA A NOVA MENSAGEM ========= */
 const CONFIG = {
-  theme: "theme-indigo",
+  theme: "theme-gold-premium", /* APLICANDO O NOVO TEMA */
   backgroundImage: "./background-dom-sarmento.jpg",
   logo: "./logo-dom-sarmento.png",
 
   brandName: "Dom Sarmento",
-  brandSub: "Barbearia • Centro",
-  heroTitle: "Tradição e estilo em cada corte",
-  heroSub: "Agende, avalie e fale com a gente em um clique.",
-  heroCta: { label: "Agendar horário", url: "#" }, // roteamento decide
+  brandSub: "Barbearia Premium • Centro", /* Ajustado */
+  heroTitle: "Arte, Tradição e Estilo no seu Corte.", /* Ajustado */
+  heroSub: "Agende, avalie e conecte-se com a gente em um clique.",
+  heroCta: { label: "AGENDAR HORÁRIO", url: "#" },
 
   footer: "Dom Sarmento © 2025 • @domsarmento",
 
-  // Wi-Fi (ajuste SSID se necessário)
+  // Wi-Fi
   wifi: { ssid: "DOMSARMENTO", password: "91011070", security: "WPA" },
 
   actions: [
@@ -125,40 +209,44 @@ const CONFIG = {
       title: "Conectar ao Wi-Fi",
       desc: "Internet liberada para clientes",
       url: "#",
-      tag: "Senha: 91011070"
+      tag: "91011070", /* A tag será renderizada com o novo estilo tag-special */
+      tagClass: "tag-special"
     },
     {
       icon: "star",
       title: "Avaliações no Google",
-      desc: "Conte como foi a sua experiência",
+      desc: "Deixe sua marca. Avalie a experiência.", /* Ajustado */
       url: "https://g.page/r/SEU_ID/review"
     },
     {
       icon: "ig",
-      title: "Instagram oficial",
+      title: "Instagram Oficial",
       desc: "@domsarmento",
       url: "https://instagram.com/domsarmento"
     },
     {
       icon: "wa",
       title: "WhatsApp",
-      desc: "Fale direto com recepção",
+      desc: "Fale direto com a recepção", /* Ajustado */
       url: "https://wa.me/5549991746304"
     },
     {
       icon: "pix",
-      kind: "copyAnywhere",     // clicar no botão inteiro copia a chave
+      kind: "copyAnywhere",
       title: "Pagamento via PIX",
-      desc: "@domsarmento",
+      desc: "Chave: @domsarmento", /* Ajustado */
       url: "javascript:void(0)",
-      copy: "49991746304"
+      copy: "49991746304", /* Telefone ou Chave aleatória para cópia */
+      tag: "Copiar",
+      tagClass: "tag" /* Mantendo o botão copiar com o estilo padrão do template */
     }
   ]
 };
 
 /* ========= Ícones ========= */
+/* Mantidos os mesmos, mas agora herdarão a cor DOURADA do .action-icon */
 const icons = {
-  wifi: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 8c5.5-4.5 14.5-4.5 20 0M5 11c3.8-3 10.2-3 14 0M8.5 14.5c2-1.6 5-1.6 7 0M12 20h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  wifi: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 8c5.5-4.5 14.5-4.5 20 0M5 11c3.8-3 10.2-3 14 0M8.5 14.5c2-1.6 5-1.6 7 0M12 20h0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`, /* Linha mais grossa (1.8) */
   star: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.27 6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73L5.82 21z"/></svg>`,
   ig: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>`,
   wa: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19l1.2-4A8 8 0 1 1 20 12a8 8 0 0 1-11 7l-5 0z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 9.5c0 4 3.5 6 5 6 .5 0 1.5-.5 1.5-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
@@ -166,12 +254,12 @@ const icons = {
   qr:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 6v-2h2m2 2v-4m-6-2h2" stroke="currentColor" stroke-width="1.6"/></svg>`
 };
 
-/* ========= Plataforma ========= */
+/* ========= Plataforma (mantido) ========= */
 const ua = navigator.userAgent || navigator.vendor || window.opera;
 const isAndroid = /Android/i.test(ua);
 const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-/* ========= Utils ========= */
+/* ========= Utils (mantido) ========= */
 function openAndroidWifiSettings(){ try{ window.location.href='intent:#Intent;action=android.settings.WIFI_SETTINGS;end'; }catch(e){} }
 function escWifi(s=''){ return String(s).replace(/([\\;,":])/g,'\\$1'); }
 function buildWifiQrUrl({ssid,password,security}){ const T=(security||'WPA').toUpperCase(); const P=(T==='NOPASS')?'':`;P:${escWifi(password)}`; const data=`WIFI:T:${T};S:${escWifi(ssid)}${P};;`; return 'https://api.qrserver.com/v1/create-qr-code/?size=320x320&data='+encodeURIComponent(data); }
@@ -183,10 +271,10 @@ function toast(msg){
   el.textContent=msg; el.style.opacity='1'; setTimeout(()=>el.style.opacity='0',1600);
 }
 
-/* ========= Render ========= */
+/* ========= Render (Ajustado) ========= */
 (function init(){
   document.documentElement.classList.remove('theme-gold','theme-indigo','theme-blue');
-  document.documentElement.classList.add(CONFIG.theme || 'theme-indigo');
+  document.documentElement.classList.add(CONFIG.theme || 'theme-gold-premium');
 
   if(CONFIG.backgroundImage){ document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`; }
 
@@ -197,7 +285,9 @@ function toast(msg){
 
   $('heroTitle').textContent = CONFIG.heroTitle;
   $('heroSub').textContent = CONFIG.heroSub;
-  $('heroCtaText').textContent = CONFIG.heroCta?.label || 'Agendar horário';
+  
+  // O texto do CTA é ajustado para MAIÚSCULAS para impacto
+  $('heroCtaText').textContent = (CONFIG.heroCta?.label || 'Agendar horário').toUpperCase(); 
   $('footer').textContent = CONFIG.footer || '';
 
   const actionsEl = $('actions');
@@ -207,6 +297,12 @@ function toast(msg){
     li.className = 'action';
     li.href = a.url || 'javascript:void(0)';
     if(a.url?.startsWith('http')){ li.target = '_blank'; li.rel = 'noopener'; }
+    
+    // Renderizando a tag/senha com a classe de estilo tag-special
+    const tagHtml = a.tag 
+        ? `<span class="${a.tagClass || 'tag'}">${a.tag}</span>` 
+        : '';
+        
     li.innerHTML = `
       <div class="action-icon">${icons[a.icon] || ''}</div>
       <div style="display:grid">
@@ -214,13 +310,12 @@ function toast(msg){
         ${a.desc ? `<div class="action-desc">${a.desc}</div>`:''}
       </div>
       <div class="right">
-        ${a.tag ? `<span class="tag">${a.tag}</span>`:''}
+        ${tagHtml}
       </div>
     `;
     actionsEl.appendChild(li);
 
-    /* ===== Comportamentos especiais ===== */
-    // Wi-Fi: botão inteiro copia e (Android) abre Ajustes; iOS/desk abre QR
+    /* ===== Comportamentos especiais (mantidos) ===== */
     if (a.kind === 'wifi') {
       li.addEventListener('click', async (ev) => {
         ev.preventDefault();
@@ -228,7 +323,6 @@ function toast(msg){
         toast('Senha do Wi-Fi copiada');
         if (isAndroid) {
           openAndroidWifiSettings();
-          // fallback: se intent bloquear, abre QR após 700ms
           setTimeout(()=>{ window.open(buildWifiQrUrl(CONFIG.wifi||{}), '_blank', 'noopener'); }, 700);
           return;
         }
@@ -236,7 +330,6 @@ function toast(msg){
       }, { passive:false });
     }
 
-    // PIX: botão inteiro copia a chave
     if (a.kind === 'copyAnywhere' && a.copy) {
       li.addEventListener('click', async (ev)=>{
         ev.preventDefault();
@@ -249,14 +342,14 @@ function toast(msg){
   // CTA "Agendar" — Android / iOS / Web
   const btn = document.getElementById('btnAgendar');
   const ANDROID_STORE = 'https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
-  const IOS_STORE     = 'https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
-  const WEB_FALLBACK  = 'https://sistema.appbarber.com.br/login.php';
+  const IOS_STORE     = 'https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
+  const WEB_FALLBACK  = 'https://sistema.appbarber.com.br/login.php';
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (isAndroid)      window.location.href = ANDROID_STORE;
-    else if (isIOS)     window.location.href = IOS_STORE;
-    else                window.location.href = WEB_FALLBACK;
+    if (isAndroid)      window.location.href = ANDROID_STORE;
+    else if (isIOS)     window.location.href = IOS_STORE;
+    else                window.location.href = WEB_FALLBACK;
   });
 })();
 </script>
