@@ -123,11 +123,9 @@ body::after{
 .video-shell{ border-radius:14px; overflow:hidden; background:#000; }
 video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 
-/* ===== Slogan ===== */
+/* ===== Slogan / Rodapé ===== */
 .footer{text-align:center; margin-top:4px}
 .footer .slogan{ color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase }
-
-/* créditos rodapé */
 .footer .credits{
   margin-top:4px;
   font-size:11px;
@@ -136,7 +134,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   text-transform:uppercase;
 }
 
-/* ===== CARROSSEL / GALERIA ===== */
+/* ===== CARROSSEL / GALERIA (CSS mantido mas sem usar) ===== */
 .gallery-title{
   margin:0 0 10px; font-weight:800;
   font-size:clamp(16px,3.8vw,20px); letter-spacing:.02em;
@@ -145,7 +143,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .car-viewport{
   overflow:hidden; border-radius:16px; background:#000;
   box-shadow:inset 0 0 0 1px var(--ring), 0 8px 36px rgba(0,0,0,.45);
-  aspect-ratio: 9 / 16;                /* mantém formato stories */
+  aspect-ratio: 9 / 16;
 }
 .car-track{ display:flex; transition:transform .45s ease; will-change:transform; height:100% }
 .car-slide{
@@ -153,21 +151,19 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   flex:0 0 100%;
   display:grid; place-items:center; height:100%; background:#000;
 }
-/* fundo desfocado que preenche as “faixas” */
 .car-slide::before{
   content:""; position:absolute; inset:0;
   background:var(--bg) center/cover no-repeat;
   filter:blur(18px) brightness(.65);
   transform:scale(1.08);
-  z-index:0;                 /* >>> fica atrás da imagem */
-  pointer-events:none;       /* >>> não bloqueia cliques */
+  z-index:0;
+  pointer-events:none;
 }
-/* imagem principal sem corte (nítida por cima) */
 .car-slide img{
   width:100%; height:100%; display:block;
   object-fit:contain;
-  position:relative;         /* >>> garante empilhamento */
-  z-index:1;                 /* >>> fica à frente do blur */
+  position:relative;
+  z-index:1;
 }
 .car-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
@@ -196,7 +192,6 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .center{text-align:center}
 .note{ color:#cfcfcf; font-size:13px; text-align:center; margin-top:6px }
 
-
 /* Wi-Fi modal */
 .qr-wrap{
   border-radius:14px; padding:10px; background:#000; width:min(360px,80vw); margin:0 auto 12px;
@@ -217,7 +212,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 
 /* ===== LISTA DE BARBEIROS ===== */
 .barbers-section{
-  margin:6px 0 18px;
+  margin:4px 0 18px;
 }
 .barber-list{
   display:flex;
@@ -230,44 +225,51 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   gap:10px;
   padding:8px 10px;
   border-radius:999px;
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
-  box-shadow:inset 0 0 0 1px var(--ring), 0 8px 24px rgba(0,0,0,.5);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 24%) top/100% 50% no-repeat,
+    linear-gradient(0deg, rgba(255,255,255,.03), rgba(255,255,255,0) 28%) bottom/100% 55% no-repeat,
+    rgba(0,0,0,.55);
+  box-shadow:inset 0 0 0 1px var(--ring), 0 6px 18px rgba(0,0,0,.55);
 }
 .barber-photo{
-  width:46px;
-  height:46px;
+  width:64px;
+  height:64px;
   border-radius:50%;
   object-fit:cover;
-  border:2px solid rgba(255,255,255,.55);
+  object-position:center top;
+  border:2px solid rgba(255,255,255,.7);
 }
 .barber-button{
   flex:1;
   border:0;
   border-radius:999px;
-  padding:8px 14px;
-  font-size:14px;
+  padding:6px 12px;
+  font-size:13px;
   font-weight:700;
   text-align:center;
   cursor:pointer;
   color:#111827;
-  background:linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 85%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.35);
+  background:linear-gradient(180deg,
+    rgba(249,238,190,.92) 0%,
+    rgba(233,201,127,.92) 50%,
+    rgba(207,161,86,.92) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 4px 12px rgba(0,0,0,.4);
   transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
 }
 .barber-button:hover{
   transform:translateY(-1px);
-  box-shadow:0 10px 24px rgba(0,0,0,.5);
-  opacity:.96;
+  box-shadow:0 8px 18px rgba(0,0,0,.6);
+  opacity:.97;
 }
 .barber-button:active{
   transform:translateY(0);
-  box-shadow:0 4px 12px rgba(0,0,0,.5);
+  box-shadow:0 3px 8px rgba(0,0,0,.55);
   opacity:.9;
 }
 @media (max-width:380px){
   .barber-photo{
-    width:40px;
-    height:40px;
+    width:56px;
+    height:56px;
   }
 }
 </style>
@@ -336,32 +338,32 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
       <div class="gallery-title">Escolha seu barbeiro</div>
       <div class="barber-list">
         <div class="barber-item">
-          <img class="barber-photo" src="media/barbeiro-adelson.jpg" alt="Adelson Sarmento">
-          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+          <img class="barber-photo" src="media/barbeiro-padrao.jpg" alt="Adelson Sarmento">
+          <button class="barber-button" onclick="openContact('5548991746304')">
             Adelson Sarmento
           </button>
         </div>
         <div class="barber-item">
-          <img class="barber-photo" src="media/barbeiro-igor.jpg" alt="Igor Sarmento">
-          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+          <img class="barber-photo" src="media/barbeiro-padrao.jpg" alt="Igor Sarmento">
+          <button class="barber-button" onclick="openContact('5548991746304')">
             Igor Sarmento
           </button>
         </div>
         <div class="barber-item">
-          <img class="barber-photo" src="media/barbeiro-bruno.jpg" alt="Bruno Sarmento">
-          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+          <img class="barber-photo" src="media/barbeiro-padrao.jpg" alt="Bruno Sarmento">
+          <button class="barber-button" onclick="openContact('5548991746304')">
             Bruno Sarmento
           </button>
         </div>
         <div class="barber-item">
-          <img class="barber-photo" src="media/barbeiro-calleb.jpg" alt="Calleb Sarmento">
-          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+          <img class="barber-photo" src="media/barbeiro-padrao.jpg" alt="Calleb Sarmento">
+          <button class="barber-button" onclick="openContact('5548991746304')">
             Calleb Sarmento
           </button>
         </div>
         <div class="barber-item">
-          <img class="barber-photo" src="media/barbeiro-joao.jpg" alt="João Sarmento">
-          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+          <img class="barber-photo" src="media/barbeiro-padrao.jpg" alt="João Sarmento">
+          <button class="barber-button" onclick="openContact('5548991746304')">
             João Sarmento
           </button>
         </div>
@@ -370,7 +372,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 
     <section class="footer">
       <div class="slogan">💈 MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO 💈</div>
-      <div class="credits">c plugo.ia</div>
+      <div class="credits">PLUGO.IA - SOMBRIO-SC</div>
     </section>
 
     <!-- VÍDEO -->
@@ -389,22 +391,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
       </div>
     </section>
 
-    <!-- GALERIA -->
-    <section class="section">
-      <div class="gallery-title">Galeria</div>
-      <div class="carousel" id="galeria">
-        <button class="car-arrow prev" aria-label="Anterior">‹</button>
-        <div class="car-viewport">
-          <div class="car-track">
-            <div class="car-slide"><img src="media/media:galeria1.jpg" alt="Galeria 1"></div>
-            <div class="car-slide"><img src="media/media:galeria2.jpg" alt="Galeria 2"></div>
-            <div class="car-slide"><img src="media/media:galeria3.jpg" alt="Galeria 3"></div>
-            <div class="car-slide"><img src="media/media:galeria4.jpg" alt="Galeria 4"></div>
-          </div>
-        </div>
-        <button class="car-arrow next" aria-label="Próximo">›</button>
-      </div>
-    </section>
+    <!-- (Galeria removida) -->
   </main>
 
   <!-- ===== MODAL WI-FI ===== -->
@@ -473,7 +460,7 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
 })();
 
-/* ===== Carrossel ===== */
+/* ===== Carrossel (não usado, mas seguro) ===== */
 (function initCarousel(rootId, intervalMs=4000){
   const root   = document.getElementById(rootId || 'galeria');
   if(!root) return;
@@ -499,7 +486,7 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   go(0); start();
 })();
 
-/* ===== Blur fill da galeria (usa a própria foto como fundo) ===== */
+/* ===== Blur fill (se um dia usar galeria de novo) ===== */
 (function blurFill(){
   document.querySelectorAll('.car-slide').forEach(slide=>{
     const img = slide.querySelector('img');
@@ -578,13 +565,12 @@ function openPix(){
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(payload)}&margin=10`;
   document.getElementById('pixQr').src = qrUrl;
   document.getElementById('pixKeyText').textContent = `Chave: ${PIX_KEY}`;
-  copyToClipboard(PIX_KEY);           // copia na abertura
+  copyToClipboard(PIX_KEY);
   const msg = document.getElementById('pixCopiedMsg');
   msg.style.display = 'block';
   setTimeout(()=> msg.style.display='none', 1500);
   openModal(pixModal);
 }
-/* Card inteiro abre o Pix */
 document.getElementById('pixRow').addEventListener('click', openPix);
 document.getElementById('pixRow').addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') openPix(); });
 
@@ -608,11 +594,11 @@ document.getElementById('btnAgendar')?.addEventListener('click', (e) => {
   }
 });
 
-/* ===== WhatsApp barbeiros ===== */
-function openWhatsApp(phone){
+/* ===== Contato barbeiros (tel: para salvar/ligar) ===== */
+function openContact(phone){
   if(!phone) return;
-  const url = `https://wa.me/${phone}`;
-  window.open(url, '_blank');
+  // telefone já no formato 55DDDNÚMERO
+  window.location.href = `tel:+${phone}`;
 }
 </script>
 </body>
