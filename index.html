@@ -12,6 +12,9 @@
   --steel-top:#3b3b3b; --steel-mid:#262626; --steel-bot:#141414;
   --tagline:#e3c676; --ring:rgba(255,255,255,.08);
   --ciano:#69dfd6; --roxinho:#a78bfa;
+
+  /* cores novas p/ botões pequenos */
+  --turq-1:#aef3ff; --turq-2:#42c1d6; --turq-3:#128ca7;
 }
 
 *{box-sizing:border-box}
@@ -29,20 +32,21 @@ body::after{
   content:""; position:fixed; inset:0;
   background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.65) 50%, rgba(0,0,0,.85)); z-index:0;
 }
-.page{position:relative; z-index:1; max-width:480px; margin:0 auto; padding:24px 16px 40px}
+/* topo mais compacto p/ subir logo/legenda */
+.page{position:relative; z-index:1; max-width:480px; margin:0 auto; padding:12px 16px 40px}
 
 /* ===== Header ===== */
 .header{text-align:center; margin:0 0 6px}
 .logo{
   width:clamp(240px, 64vw, 340px);
-  display:block; margin:0 auto 6px;
+  display:block; margin:0 auto 4px;
   filter:drop-shadow(0 12px 22px rgba(0,0,0,.40));
   mix-blend-mode:multiply;
 }
 .tagline{
   color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase;
   font-size:clamp(16px,3.8vw,20px);
-  margin:4px auto 10px;
+  margin:0 auto 10px;
 }
 
 /* ===== Cards ===== */
@@ -89,11 +93,22 @@ body::after{
 .sub{ font-size:clamp(12px,3.2vw,14px); color:var(--muted); margin-top:3px }
 .btn--gold .title{ color:#121212 }
 .btn--gold .sub{ color:#1f1f1f; opacity:.86 }
-.chip{
-  flex:0 0 auto; border:0; cursor:pointer; padding:8px 12px; border-radius:12px;
-  background:var(--ciano); color:#083033; font-weight:800; font-size:12px;
-  line-height:1.1; text-align:center; white-space:nowrap;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
+
+/* ===== Botões pequenos do modal ===== */
+.btn-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0 }
+.btn-small{
+  border:0; border-radius:12px; padding:10px 12px; font-weight:700; cursor:pointer;
+  color:#0b0b0b; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 8px 18px rgba(0,0,0,.25);
+}
+/* “Copiar senha” em dourado */
+.btn-pass{
+  color:#191919;
+  background:linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 80%);
+}
+/* “Abrir Wi-Fi (Android)” em turquesa */
+.btn-open{
+  color:#082a32;
+  background:linear-gradient(180deg, var(--turq-1) 0%, var(--turq-2) 55%, var(--turq-3) 100%);
 }
 
 /* ===== VÍDEO ===== */
@@ -112,6 +127,15 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .footer{text-align:center; margin-top:4px}
 .footer .slogan{ color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase }
 
+/* créditos rodapé */
+.footer .credits{
+  margin-top:4px;
+  font-size:11px;
+  color:rgba(232,232,232,.72);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
 /* ===== CARROSSEL / GALERIA ===== */
 .gallery-title{
   margin:0 0 10px; font-weight:800;
@@ -121,11 +145,29 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .car-viewport{
   overflow:hidden; border-radius:16px; background:#000;
   box-shadow:inset 0 0 0 1px var(--ring), 0 8px 36px rgba(0,0,0,.45);
+  aspect-ratio: 9 / 16;                /* mantém formato stories */
 }
-.car-track{ display:flex; transition:transform .45s ease; will-change:transform }
-.car-slide{ flex:0 0 100% }
+.car-track{ display:flex; transition:transform .45s ease; will-change:transform; height:100% }
+.car-slide{
+  position:relative; overflow:hidden;
+  flex:0 0 100%;
+  display:grid; place-items:center; height:100%; background:#000;
+}
+/* fundo desfocado que preenche as “faixas” */
+.car-slide::before{
+  content:""; position:absolute; inset:0;
+  background:var(--bg) center/cover no-repeat;
+  filter:blur(18px) brightness(.65);
+  transform:scale(1.08);
+  z-index:0;                 /* >>> fica atrás da imagem */
+  pointer-events:none;       /* >>> não bloqueia cliques */
+}
+/* imagem principal sem corte (nítida por cima) */
 .car-slide img{
-  width:100%; height:auto; display:block; aspect-ratio:9/16; object-fit:cover;
+  width:100%; height:100%; display:block;
+  object-fit:contain;
+  position:relative;         /* >>> garante empilhamento */
+  z-index:1;                 /* >>> fica à frente do blur */
 }
 .car-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
@@ -154,51 +196,79 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .center{text-align:center}
 .note{ color:#cfcfcf; font-size:13px; text-align:center; margin-top:6px }
 
+
 /* Wi-Fi modal */
 .qr-wrap{
   border-radius:14px; padding:10px; background:#000; width:min(360px,80vw); margin:0 auto 12px;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
 }
 .qr-wrap img{ width:100%; height:auto; display:block }
-.btn-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0 }
-.btn-small{
-  border:0; border-radius:12px; padding:10px 12px; font-weight:700; cursor:pointer;
-  color:#0b0b0b;
-}
-.btn-ssid{ background:var(--ciano) }
-.btn-pass{ background:var(--roxinho); color:#fff }
-.btn-open{ background:var(--ciano) }
-
-/* PIX modal */
-.bank-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px }
-.bank-grid a{
-  display:block; text-align:center; padding:10px 8px; border-radius:12px;
-  text-decoration:none; font-weight:800; font-size:13px;
-  color:#0b0b0b; /* TEXTO PRETO */
-  background:
-    radial-gradient(160% 220% at 0% -40%, rgba(255,255,255,.60), transparent 45%),
-    linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 70%, var(--gold-4) 100%);
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 6px 22px rgba(0,0,0,.30);
-}
-.bank-grid a:active{ transform:scale(.98) }
-.ios-tip{
-  margin-top:12px; padding:12px; border-radius:12px; background:#1b1b1b;
-  border:1px solid rgba(255,255,255,.1); color:#e9e9e9; font-size:14px; text-align:center;
-}
-.copy-ok{ display:none; margin-top:12px; color:#9ae6b4; font-weight:800; text-align:center; font-size:16px }
-.copy-ok.show{ display:block }
 
 /* bloco Pix inteiro clicável */
 #pixRow{ cursor:pointer }
 
-/* Extra-compacto para telas muito estreitas */
+/* Extra-compacto */
 @media (max-width: 380px){
   .btn{ min-height:66px; padding:10px 12px }
   .icon{ width:34px; height:34px }
   .title{ font-size:15px }
   .sub{ font-size:12px }
-  .chip{ font-size:11px; padding:7px 10px }
+}
+
+/* ===== LISTA DE BARBEIROS ===== */
+.barbers-section{
+  margin:6px 0 18px;
+}
+.barber-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.barber-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  box-shadow:inset 0 0 0 1px var(--ring), 0 8px 24px rgba(0,0,0,.5);
+}
+.barber-photo{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,.55);
+}
+.barber-button{
+  flex:1;
+  border:0;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:14px;
+  font-weight:700;
+  text-align:center;
+  cursor:pointer;
+  color:#111827;
+  background:linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 85%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.35);
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.barber-button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(0,0,0,.5);
+  opacity:.96;
+}
+.barber-button:active{
+  transform:translateY(0);
+  box-shadow:0 4px 12px rgba(0,0,0,.5);
+  opacity:.9;
+}
+@media (max-width:380px){
+  .barber-photo{
+    width:40px;
+    height:40px;
+  }
 }
 </style>
 </head>
@@ -210,7 +280,8 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
     </header>
 
     <section class="stack">
-      <a class="btn btn--gold" href="#" id="btnAgendar">
+      <!-- Agendar no mesmo estilo dos demais (escuro) -->
+      <a class="btn btn--dark" href="#" id="btnAgendar">
         <img class="icon" src="media/media:calendar.png" alt="Calendário">
         <div>
           <div class="title">Agendar horário</div>
@@ -226,7 +297,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
         </div>
       </a>
 
-      <a class="btn btn--dark" href="https://g.page/r/CWGiPPWDayclEAE/review" target="_blank" rel="noopener">
+      <a class="btn btn--dark" href="https://g.page/r/CdBvO0UJXkO-EAE/review" target="_blank" rel="noopener">
         <img class="icon" src="media/media:star.png" alt="Avaliações no Google">
         <div>
           <div class="title">Avaliações no Google</div>
@@ -250,19 +321,56 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
         </div>
       </a>
 
-      <!-- Bloco inteiro do Pix clicável -->
+      <!-- PIX: sem botão lateral; card inteiro abre o QR e copia a chave -->
       <div class="btn btn--dark" id="pixRow" role="button" tabindex="0" aria-label="Pagamento via Pix, copiar chave">
         <img class="icon" src="media/media:pix.png" alt="Pix">
         <div style="flex:1">
           <div class="title">Pagamento via Pix</div>
           <div class="sub">@domsarmento</div>
         </div>
-        <button class="chip" id="btnPix">COPIAR CHAVE<br>49991746304</button>
+      </div>
+    </section>
+
+    <!-- LISTA DE BARBEIROS -->
+    <section class="section barbers-section">
+      <div class="gallery-title">Escolha seu barbeiro</div>
+      <div class="barber-list">
+        <div class="barber-item">
+          <img class="barber-photo" src="media/barbeiro-adelson.jpg" alt="Adelson Sarmento">
+          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+            Adelson Sarmento
+          </button>
+        </div>
+        <div class="barber-item">
+          <img class="barber-photo" src="media/barbeiro-igor.jpg" alt="Igor Sarmento">
+          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+            Igor Sarmento
+          </button>
+        </div>
+        <div class="barber-item">
+          <img class="barber-photo" src="media/barbeiro-bruno.jpg" alt="Bruno Sarmento">
+          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+            Bruno Sarmento
+          </button>
+        </div>
+        <div class="barber-item">
+          <img class="barber-photo" src="media/barbeiro-calleb.jpg" alt="Calleb Sarmento">
+          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+            Calleb Sarmento
+          </button>
+        </div>
+        <div class="barber-item">
+          <img class="barber-photo" src="media/barbeiro-joao.jpg" alt="João Sarmento">
+          <button class="barber-button" onclick="openWhatsApp('55XXXXXXXXXXX')">
+            João Sarmento
+          </button>
+        </div>
       </div>
     </section>
 
     <section class="footer">
       <div class="slogan">💈 MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO 💈</div>
+      <div class="credits">c plugo.ia</div>
     </section>
 
     <!-- VÍDEO -->
@@ -310,41 +418,29 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
         <div class="qr-wrap"><img id="wifiQr" alt="QR do Wi-Fi"></div>
         <div class="center" id="wifiRede">Rede:</div>
         <div class="btn-row">
-          <button class="btn-small btn-ssid" id="copySsid">Copiar SSID</button>
+          <!-- Removido: Copiar SSID -->
           <button class="btn-small btn-pass" id="copyPass">Copiar senha</button>
+          <button class="btn-small btn-open" id="wifiOpenAndroid">Abrir Wi-Fi (Android)</button>
         </div>
-        <div class="center"><button class="btn-small btn-open" id="wifiOpenAndroid">Abrir Wi-Fi (Android)</button></div>
         <div class="note">Aponte a câmera para o QR para conectar automaticamente. No iPhone, abra Ajustes &gt; Wi-Fi.</div>
       </div>
     </div>
   </div>
 
-  <!-- ===== MODAL PIX ===== -->
+  <!-- ===== MODAL PIX (QR APENAS) ===== -->
   <div class="modal" id="pixModal" aria-hidden="true">
     <div class="card" role="dialog" aria-modal="true" aria-labelledby="pixTitle">
       <header>
-        <h3 id="pixTitle">Pix — Chave copiada</h3>
+        <h3 id="pixTitle">Pix — aponte a câmera</h3>
         <button class="close-btn" id="closePix">Fechar ✕</button>
       </header>
       <div class="body">
-        <div class="center" style="font-size:18px; line-height:1.25; margin-bottom:8px">
-          Use um atalho abaixo para abrir seu banco. Se não abrir, a chave já está copiada.
+        <div class="qr-wrap"><img id="pixQr" alt="QR Code do Pix"></div>
+        <div class="center" id="pixKeyText" style="font-size:14px; opacity:.9"></div>
+        <div class="copy-ok" id="pixCopiedMsg" style="display:none; text-align:center; margin-top:8px; color:#9ae6b4; font-weight:800">✅ Chave PIX copiada!</div>
+        <div class="center" style="margin-top:6px">
+          <button class="btn-small btn-open" id="copyPixAgain">Copiar chave novamente</button>
         </div>
-
-        <div class="bank-grid" id="bankGrid">
-          <a href="#" data-app="nubank">Nubank</a>
-          <a href="#" data-app="mercadopago">Mercado Pago</a>
-          <a href="#" data-app="itau">Itaú</a>
-          <a href="#" data-app="bradesco">Bradesco</a>
-          <a href="#" data-app="caixa">Caixa</a>
-          <a href="#" data-app="sicoob">Sicoob</a>
-        </div>
-
-        <div class="ios-tip" id="iosTip">
-          iPhone: a chave PIX <strong>já foi copiada</strong>. Abra seu app do banco e <strong>cole</strong> a chave.
-        </div>
-
-        <div class="copy-ok" id="pixCopiedMsg">✅ Chave PIX copiada!</div>
       </div>
     </div>
   </div>
@@ -352,18 +448,20 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 <script>
 /* ========= Configurações ========= */
 const WIFI = {
-  ssid: 'Lukanna Estamparia_5G',
-  pass: 'estampariadigital.',
+  ssid: 'Dom Sarmento_Cliente',
+  pass: 'ds3031082018',
   type: 'WPA'
 };
-const PIX_KEY = '49991746304';
+const PIX_KEY = '17888489000182';
+const PIX_NAME = 'DOM SARMENTO';
+const PIX_CITY = 'BRASIL';
 
 /* Utils */
 async function copyToClipboard(text){ try { await navigator.clipboard.writeText(text); } catch(e) {} }
 const isAndroid = /Android/i.test(navigator.userAgent);
 const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-/* ===== Vídeo autoplay reforçado ===== */
+/* ===== Vídeo autoplay ===== */
 (function () {
   const v = document.getElementById('videoBarbearia');
   if (!v) return;
@@ -384,7 +482,6 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   const prev   = root.querySelector('.prev');
   const next   = root.querySelector('.next');
   let index = 0, timer, paused = false;
-
   function go(i){ index = (i + slides.length) % slides.length; track.style.transform = `translateX(${-index*100}%)`; }
   function start(){ stop(); timer = setInterval(()=>{ if(!paused) go(index+1); }, intervalMs); }
   function stop(){ if(timer) clearInterval(timer); }
@@ -400,6 +497,16 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   root.addEventListener('touchend',   ()=>{ if(Math.abs(dx) > 40){ dx<0 ? go(index+1) : go(index-1); start(); } sx=dx=0; });
   document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') stop(); else start(); });
   go(0); start();
+})();
+
+/* ===== Blur fill da galeria (usa a própria foto como fundo) ===== */
+(function blurFill(){
+  document.querySelectorAll('.car-slide').forEach(slide=>{
+    const img = slide.querySelector('img');
+    if(img && img.src){
+      slide.style.setProperty('--bg', `url('${img.src}')`);
+    }
+  });
 })();
 
 /* ===== Modal helpers ===== */
@@ -419,7 +526,7 @@ document.getElementById('btnWifi').addEventListener('click', (e)=>{
 document.getElementById('closeWifi').addEventListener('click', ()=> closeModal(wifiModal));
 wifiModal.addEventListener('click', (e)=>{ if(e.target.id==='wifiModal') closeModal(wifiModal); });
 
-document.getElementById('copySsid').addEventListener('click', async ()=>{ await copyToClipboard(WIFI.ssid); alert('SSID copiado.'); });
+/* Sem “Copiar SSID” */
 document.getElementById('copyPass').addEventListener('click', async ()=>{ await copyToClipboard(WIFI.pass); alert('Senha copiada.'); });
 document.getElementById('wifiOpenAndroid').addEventListener('click', async ()=>{
   await copyToClipboard(WIFI.pass);
@@ -429,52 +536,61 @@ document.getElementById('wifiOpenAndroid').addEventListener('click', async ()=>{
   try { window.location.href = intent; } catch(e){ clearTimeout(tip); alert('A senha já foi copiada. Abra o Wi-Fi do aparelho e cole.'); }
 });
 
-/* ====== PIX ====== */
+/* ====== PIX (copia e mostra QR apenas) ====== */
+function tlv(id, value){
+  const len = value.length.toString().padStart(2,'0');
+  return id + len + value;
+}
+function crc16(payload){
+  let crc = 0xFFFF;
+  for (let i=0; i<payload.length; i++){
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let j=0; j<8; j++){
+      crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : (crc << 1);
+      crc &= 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4,'0');
+}
+function buildPixPayload(key, name, city, msg){
+  const gui        = tlv('00','br.gov.bcb.pix');
+  const keyField   = tlv('01', key);
+  const descField  = msg ? tlv('02', msg) : '';
+  const merAccInfo = tlv('26', gui + keyField + descField);
+  const payload =
+    tlv('00','01') +
+    tlv('01','12') +
+    merAccInfo +
+    tlv('52','0000') +
+    tlv('53','986') +
+    tlv('58','BR') +
+    tlv('59', (name || 'MERCHANT').substring(0,25)) +
+    tlv('60', (city || 'BRASIL').substring(0,15)) +
+    tlv('62', tlv('05','***')) +
+    '6304';
+  const crc = crc16(payload);
+  return payload + crc;
+}
+
 const pixModal = document.getElementById('pixModal');
 function openPix(){
-  copyToClipboard(PIX_KEY).then(()=>{
-    document.getElementById('pixCopiedMsg').classList.add('show');
-    document.getElementById('iosTip').style.display = isIOS ? 'block' : 'none';
-    openModal(pixModal);
-  });
+  const payload = buildPixPayload(PIX_KEY, PIX_NAME, PIX_CITY, 'Pagamento DOM SARMENTO');
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(payload)}&margin=10`;
+  document.getElementById('pixQr').src = qrUrl;
+  document.getElementById('pixKeyText').textContent = `Chave: ${PIX_KEY}`;
+  copyToClipboard(PIX_KEY);           // copia na abertura
+  const msg = document.getElementById('pixCopiedMsg');
+  msg.style.display = 'block';
+  setTimeout(()=> msg.style.display='none', 1500);
+  openModal(pixModal);
 }
-document.getElementById('btnPix').addEventListener('click', (e)=>{ e.stopPropagation(); openPix(); });
+/* Card inteiro abre o Pix */
 document.getElementById('pixRow').addEventListener('click', openPix);
 document.getElementById('pixRow').addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') openPix(); });
 
+document.getElementById('copyPixAgain').addEventListener('click', ()=> copyToClipboard(PIX_KEY));
 document.getElementById('closePix').addEventListener('click', ()=> closeModal(pixModal));
 pixModal.addEventListener('click', (e)=>{ if(e.target.id==='pixModal') closeModal(pixModal); });
-
-/* Deep links dos bancos + fallback */
-const BANKS = {
-  nubank:      { scheme:'nubank://',        pkg:'com.nu.production' },
-  mercadopago: { scheme:'mercadopago://',   pkg:'com.mercadopago.wallet' },
-  itau:        { scheme:'itau://',          pkg:'com.itau' },
-  bradesco:    { scheme:'bradesco://',      pkg:'com.bradesco' },
-  caixa:       { scheme:'caixa://',         pkg:'br.gov.caixa.tem' },
-  sicoob:      { scheme:'sicoob://',        pkg:'br.com.sicoob.app' }
-};
-function openBankApp(cfg){
-  const store = `https://play.google.com/store/apps/details?id=${cfg.pkg}`;
-  if(isAndroid){
-    try{ window.location.href = `intent://open#Intent;package=${cfg.pkg};scheme=${cfg.scheme.replace('://','')};end`; }catch(e){}
-    setTimeout(()=>{ window.open(store, '_blank'); }, 1400);
-  }else if(isIOS){
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = cfg.scheme;
-    document.body.appendChild(iframe);
-    setTimeout(()=>{ document.body.removeChild(iframe); }, 1500);
-  }else{
-    window.open(store, '_blank');
-  }
-}
-document.getElementById('bankGrid').addEventListener('click', (e)=>{
-  const a = e.target.closest('a[data-app]'); if(!a) return;
-  e.preventDefault();
-  const cfg = BANKS[a.dataset.app];
-  if(cfg) openBankApp(cfg);
-});
 
 /* ===== AppBarber – roteamento por plataforma ===== */
 const ANDROID_STORE = 'https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
@@ -491,6 +607,13 @@ document.getElementById('btnAgendar')?.addEventListener('click', (e) => {
     window.location.href = WEB_FALLBACK;
   }
 });
+
+/* ===== WhatsApp barbeiros ===== */
+function openWhatsApp(phone){
+  if(!phone) return;
+  const url = `https://wa.me/${phone}`;
+  window.open(url, '_blank');
+}
 </script>
 </body>
 </html>
